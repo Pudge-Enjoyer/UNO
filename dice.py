@@ -15,8 +15,3 @@ class Cube():
 
     def load(self):
         pass
-
-C1=Cube()
-C2=Cube()
-C3=Cube()
-print(C1, C2, C3)
