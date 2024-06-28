@@ -1,12 +1,12 @@
 import numpy as np
 class House():
     def __init__(self):
-        self.house=np.array([[None, "", "", "", None],
-                               ["", "", "", "", None],
-                               [None, "", "", "", None],
-                               ["", "", None, "", ""],
-                               ["", "", "", "", ""],
-                               ["", "", "", "", ""]])
+        self.house=[[None, "", "", "", None],
+                    ["", "", "", "", None],
+                    [None, "", "", "", None],
+                    ["", "", None, "", ""],
+                    ["", "", "", "", ""],
+                    ["", "", "", "", ""]]
 
     def __repr__(self):
         return f"""
