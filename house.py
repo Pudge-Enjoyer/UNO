@@ -1,4 +1,3 @@
-import numpy as np
 class House():
     def __init__(self):
         self.house=[[None, "", "", "", None],
