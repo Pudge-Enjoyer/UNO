@@ -14,7 +14,6 @@ class Dice():
     def save(self):
         with open('data1.json', 'w') as file:
             json.dump({"cur_side": self.cur_side}, file)
-            return {"cur_side": self.cur_side}
     @staticmethod
     def load():
         with open('data1.json', 'r') as file:
