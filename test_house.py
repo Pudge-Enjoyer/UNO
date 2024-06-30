@@ -6,7 +6,8 @@ def test_score():
     c.put(1, 2, 2)
     c.put(1, 3, 3)
     c.put(1, 5, 5)
-    print(c.score())
+    c.score()==16
+
 def test_score_1():
     c = House()
     assert c.score_1() == 0

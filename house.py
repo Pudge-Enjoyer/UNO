@@ -218,7 +218,7 @@ class House():
                 if self.house[k][i] == 6:
                     a = [k, i]
                     w.append(a)
-        return w
+        return s
     def put(self, tower_number, floor_number, item_number):
         self.house[6-floor_number][tower_number-1]=item_number
     def save(self):
