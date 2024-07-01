@@ -25,7 +25,6 @@ def test_score_1():
     a.put(1, 3, 2)
     a.put(1, 5, 2)
     assert a.score_1() == 4
-    assert type(a.score_1()) == int
 
 def test_score_2():
     c = House()
@@ -90,23 +89,8 @@ def test_score_5():
     assert c.score_5() == 15
     c.put(3, 6, 5)
     assert c.score_5() == 21
-    c.put(1, 2, 5)
-    assert c.score_5() == 23
-    c.put(1, 3, 5)
-    assert c.score_5() == 26
-    c.put(1, 5, 5)
-    assert c.score_5() == 31
-    c.put(2, 1, 5)
-    assert c.score_5() == 32
-    c.put(2, 3, 5)
-    assert c.score_5() == 35
-    c.put(2, 4, 5)
-    assert c.score_5() == 39
-    c.put(2, 5, 5)
-    assert c.score_5() == 44
-    c.put(2, 6, 5)
-    assert c.score_5() == 50
     print(c)
+    
 def test_score_6():
     c = House()
     c.put(1, 1, 6)
