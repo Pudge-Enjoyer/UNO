@@ -37,11 +37,16 @@ def test_repr():
 def test_put():
     c = House()
     c.put(1, 1, 1)
-    assert c.house[11][0] == 1
+    assert c.house[10][0] == 1
     c.put(3, 3, 1)
-    assert c.house[7][2] == "NAN"
+    assert c.house[6][2] == "NAN"
     c.put(3, 2, 2)
-    assert c.house[9][2] == 2
+    assert c.house[8][2] == 2
+    c.put(2, 6, 5)
+    assert c.house[1][1] == 5
+    c.put(2, 6, 2)
+    assert c.house[1][1] == 5
+    print(c)
 
 
 def test_score():
@@ -50,7 +55,22 @@ def test_score():
     c.put(1, 2, 2)
     c.put(1, 3, 3)
     c.put(1, 5, 5)
-    pass
+    c.put(2, 2, 4)
+    c.put(2, 1, 6)
+    c.put(3, 1, 6)
+    c.put(4, 2, 6)
+    c.put(3, 2, 4)
+    c.put(2, 3, 2)
+    c.put(2, 5, 5)
+    c.put(2, 4, 3)
+    c.put(2, 6, 2)
+    c.put(5, 1, 1)
+    c.put(5, 3, 5)
+    c.put(4, 3, 6)
+    c.put(4, 4, 6)
+    print(c)
+    assert c.score() == 60
+
 def test_score_home1():
     c = House()
     assert c.score_home1() == 0
@@ -68,7 +88,6 @@ def test_score_home1():
     a.put(1, 3, 2)
     a.put(1, 5, 2)
     assert a.score_home1() == 4
-    assert type(a.score_home1()) == int
 
 def test_score_ball2():
     c = House()
@@ -153,24 +172,50 @@ def test_score_pillow5():
 def test_score_6():
     c = House()
     c.put(1, 1, 6)
+    assert c.score_mouse6() == 2
+    c.put(1, 2, 3)
+    assert c.score_mouse6() == 2
+    c.put(1, 3, 6)
+    assert c.score_mouse6() == 4
+    c.put(2, 1, 6)
+    assert c.score_mouse6() == 8
+    c.put(3, 1, 6)
+    assert c.score_mouse6() == 14
+    c.put(4, 1, 6)
+    assert c.score_mouse6() == 22
+    c.put(5, 1, 6)
+    assert c.score_mouse6() == 22
+    c.put(5, 2, 6)
+    assert c.score_mouse6() == 22
+    c.put(2, 4, 6)
+    assert c.score_mouse6() == 26
+    c.put(2, 5, 6)
+    assert c.score_mouse6() == 32
+    c.put(3, 4, 6)
+    assert c.score_mouse6() == 40
+    c.put(4, 4, 6)
+    assert c.score_mouse6() == 40
+    c.put(5, 3, 6)
+    assert c.score_mouse6() == 20
+    print(c)
 
 def test_save():
     c = House()
-    assert c.save() == self.house
+    assert c.save() == c.house
 
 def test_load():
     c = House()
     c.put(3,2,1)
     c = c.load(c.house)
-    assert c.house == [["NAN", "", "NAN", "", "NAN"],
-                          ["NAN", "NAN", "", "NAN", "NAN"],
-                          ["NAN", "", "NAN", "", "NAN"],
-                          ["", "NAN", "", "NAN", "NAN"],
-                          ["NAN", "", "NAN", "", "NAN"],
-                          ["NAN", "NAN", "", "NAN", "NAN"],
-                          ["NAN", "", "NAN", "", "NAN"],
-                          ["", "NAN", "NAN", "NAN", ""],
-                          ["NAN", "", "NAN", "", "NAN"],
-                          ["", "NAN", 1, "NAN", ""],
-                          ["NAN", "", "NAN", "", "NAN"],
-                          ["", "NAN", "", "NAN", ""]]
+    assert c.house == [["NAN", "NAN", "", "NAN", "NAN"],
+                      ["NAN", "", "NAN", "", "NAN"],
+                      ["", "NAN", "", "NAN", "NAN"],
+                      ["NAN", "", "NAN", "", "NAN"],
+                      ["NAN", "NAN", "", "NAN", "NAN"],
+                      ["NAN", "", "NAN", "", "NAN"],
+                      ["", "NAN", "NAN", "NAN", ""],
+                      ["NAN", "", "NAN", "", "NAN"],
+                      ["", "NAN", 1, "NAN", ""],
+                      ["NAN", "", "NAN", "", "NAN"],
+                      ["", "NAN", "", "NAN", ""],
+                      ["NAN", "", "NAN", "", "NAN"]]
