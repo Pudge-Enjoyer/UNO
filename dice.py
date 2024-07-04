@@ -1,22 +1,22 @@
-from random import randint
 import json
+from random import randint
 class Dice():
-    SIDES=[1, 2, 3, 4, 5, 6]
+    SIDES = [1, 2, 3, 4, 5, 6]
     def __init__(self, side=None):
         if side != None and 1 <= side <= 6:
-            self.cur_side = side
+            self.current_side = side
         else:
             self.roll()
 
     def __repr__(self):
-        return str(self.cur_side)
+        return str(self.current_side)
 
     def roll(self):
-        self.cur_side=self.SIDES[randint(0,5)]
+        self.current_side = self.SIDES[randint(0, 5)]
 
     def save(self):
         return repr(self)
 
     @classmethod
-    def load(cls, value: str):
-        return cls(int(value))
+    def load(cls, value: int):
+        return cls(value)

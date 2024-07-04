@@ -25,17 +25,17 @@ class Gamestate():
         self.current_player_index = (self.current_player_index + 1) % n
 
     def rolled_dice(self):
-        self.cube1 = Dice()
-        self.cube2 = Dice()
-        self.cube3 = Dice()
-        self.lst_cubes = [self.cube1.current_side, self.cube2.current_side, self.cube3.current_side]
-        return self.lst_cubes
+        self.rolled_dices = Dice(), Dice(), Dice()
+        return GameStage.CHOOSE_DICE
 
     def choose_dice(self):
-        pass
+        for player in self.players:
 
+        self.players[self.current_player_index].chosen_dice = self.players[self.current_player_index].choose_dice(self.rolled_dices)
+        self.rolled_dices.remove(self.players[self.current_player_index].chosen_dice)
+        return GameStage.CHOOSE_ACTION
     def choose_action(self):
-        pass
+        return GameStage.NEXT_ROUND
 
     def is_win_condition(self):
         for player in self.players:
@@ -47,7 +47,7 @@ class Gamestate():
                 if "" not in w:
                     full_tower += 1
             if full_tower == 3:
-                return True
+                return GameStage.END_GAME
         return False
 
     def win_player(self):
