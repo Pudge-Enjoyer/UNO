@@ -15,3 +15,4 @@ class AI():
             return tower, dices[1], dices[0]
         else:
             return None
+
