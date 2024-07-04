@@ -1,3 +1,4 @@
+from copy import copy
 SCORES = [[6, 4], [9, 5], [7, 3], [8, 4], [3, 2]]
 ITEMS = ["_домик_", "клубок_", "бабочка", "_миска_", "подушка", "_мышка_"]
 MOUSE = [2, 6, 12, 20]
@@ -8,7 +9,6 @@ LBOT = (1, -1)
 RTOP = (-1, 1)
 LTOP = (-1, -1)
 CONNECTIONS = [BOT, TOP, RBOT, LBOT, RTOP, LTOP]
-BUTTERFLY_SCORE = 3
 class House():
     def __init__(self, house=None):
         if house == None:
@@ -184,6 +184,13 @@ class House():
                 mice.append((row + drow, col + dcol))
                 self._find_mice_complex(row + drow, col + dcol, mice)
         return mice
+
+    def _get(self, tower, floor):
+        if tower % 2 == 1:
+            return self.house[12 - 2*floor][tower - 1]
+        else:
+            return self.house[13 - 2 * floor][tower - 1]
+
 
     def save(self):
         return self.house

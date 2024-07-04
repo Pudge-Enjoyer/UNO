@@ -1,4 +1,4 @@
-from house_hex import (House)
+from house_new import House
 
 def test_position():
     c = House()
@@ -11,18 +11,18 @@ def test_position():
 
 def test_init():
     c = House()
-    assert c.house == [["NAN", "", "NAN", "", "NAN"],
-                      ["NAN", "NAN", "", "NAN", "NAN"],
-                      ["NAN", "", "NAN", "", "NAN"],
-                      ["", "NAN", "", "NAN", "NAN"],
-                      ["NAN", "", "NAN", "", "NAN"],
-                      ["NAN", "NAN", "", "NAN", "NAN"],
-                      ["NAN", "", "NAN", "", "NAN"],
-                      ["", "NAN", "NAN", "NAN", ""],
-                      ["NAN", "", "NAN", "", "NAN"],
-                      ["", "NAN", "", "NAN", ""],
-                      ["NAN", "", "NAN", "", "NAN"],
-                      ["", "NAN", "", "NAN", ""]]
+    assert c.house == [["NAN", "NAN", "", "NAN", "NAN"],
+                          ["NAN", "", "NAN", "", "NAN"],
+                          ["", "NAN", "", "NAN", "NAN"],
+                          ["NAN", "", "NAN", "", "NAN"],
+                          ["NAN", "NAN", "", "NAN", "NAN"],
+                          ["NAN", "", "NAN", "", "NAN"],
+                          ["", "NAN", "NAN", "NAN", ""],
+                          ["NAN", "", "NAN", "", "NAN"],
+                          ["", "NAN", "", "NAN", ""],
+                          ["NAN", "", "NAN", "", "NAN"],
+                          ["", "NAN", "", "NAN", ""],
+                          ["NAN", "", "NAN", "", "NAN"]]
 
 def test_repr():
     c = House()
@@ -48,6 +48,19 @@ def test_put():
     assert c.house[1][1] == 5
     print(c)
 
+def test_get():
+    c = House()
+    c.put(1, 1, 1)
+    assert c._get(1, 1) == 1
+    c.put(3, 3, 1)
+    assert c._get(3, 3) == "NAN"
+    c.put(3, 2, 2)
+    assert c._get(3, 2) == 2
+    c.put(2, 6, 5)
+    assert c._get(2, 6) == 5
+    c.put(2, 6, 2)
+    assert c._get(2, 6) == 5
+    print(c)
 
 def test_score():
     c = House()
@@ -70,7 +83,6 @@ def test_score():
     c.put(4, 4, 6)
     print(c)
     assert c.score() == 60
-
 def test_score_home1():
     c = House()
     assert c.score_home1() == 0
@@ -99,6 +111,9 @@ def test_score_ball2():
     assert c.score_ball2() == 3
     c.put(5, 3, 2)
     assert c.score_ball2() == 8
+    c.put(3, 1, 2)
+    assert c.score_ball2() == 15
+    print(c)
 
 def test_score_butterfly3():
     c = House()
@@ -122,7 +137,7 @@ def test_score_bowl4():
     assert c.score_bowl4() == 0
     c.put(4, 5, 1)
     assert c.score_bowl4() == 1
-    c.put(3, 4, 2 )
+    c.put(3, 4, 2)
     assert c.score_bowl4() == 2
     c.put(2, 5, 3)
     assert c.score_bowl4() == 3
