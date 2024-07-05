@@ -1,8 +1,13 @@
 import json
-
 from dice import Dice
 from player import Player
 
+class GameStage():
+    ROLL_DICE = 1
+    CHOOSE_DICE = 2
+    CHOOSE_ACTION = 3
+    NEXT_ROUND = 4
+    END_GAME = 5
 
 class Gamestate():
     def __init__(self, players, current_player: int = 0, dices = None):
@@ -15,7 +20,22 @@ class Gamestate():
         self.dices = dices
 
     def run(self):
-        pass
+        stage = GameStage.ROLL_DICE
+        while stage != GameStage.END_GAME:
+            match stage:
+                case GameStage.ROLL_DICE:
+                    stage = self.rolled_dice()
+                case GameStage.CHOOSE_DICE:
+                    stage = self.choose_dice_stage()
+                case GameStage.CHOOSE_ACTION:
+                    stage = self.choose_action_stage()
+                case GameStage.NEXT_ROUND:
+                    if self.is_win_condition():
+                        stage = GameStage.END_GAME
+                    else:
+                        self.next_player()
+                        stage = GameStage.ROLL_DICE
+        return self.win_player()
 
     def current_player(self):
         return self.players[self.current_player_index]
@@ -25,16 +45,24 @@ class Gamestate():
         self.current_player_index = (self.current_player_index + 1) % n
 
     def rolled_dice(self):
-        self.rolled_dices = Dice(), Dice(), Dice()
+        self.rolled_dices = []
+        for dice in self.dices:
+            dice.roll()
+            self.rolled_dices.append(dice.current_side)
         return GameStage.CHOOSE_DICE
 
-    def choose_dice(self):
-        for player in self.players:
-
-        self.players[self.current_player_index].chosen_dice = self.players[self.current_player_index].choose_dice(self.rolled_dices)
-        self.rolled_dices.remove(self.players[self.current_player_index].chosen_dice)
+    def choose_dice_stage(self):
+        for _ in range(len(self.players)):
+            self.players[self.current_player_index].choosen_dice = self.players[self.current_player_index].choose_dice(self.rolled_dices)
+            self.rolled_dices.remove(self.players[self.current_player_index].choosen_dice)
+            self.next_player()
         return GameStage.CHOOSE_ACTION
-    def choose_action(self):
+    def choose_action_stage(self):
+        for i in range(len(self.players)):
+            dice_list = [self.players[i].choosen_dice, self.rolled_dices[0]]
+            action = self.players[i].choose_action(dice_list)
+            if action != None:
+                self.players[i].tower_lst.put(action[0], action[1], action[2])
         return GameStage.NEXT_ROUND
 
     def is_win_condition(self):
@@ -42,8 +70,8 @@ class Gamestate():
             full_tower = 0
             for col in range(5):
                 w = []
-                for row in range(len(player.tower_lst)):
-                    w.append(player.tower_lst[row][col])
+                for row in range(len(player.tower_lst.house)):
+                    w.append(player.tower_lst.house[row][col])
                 if "" not in w:
                     full_tower += 1
             if full_tower == 3:
@@ -58,8 +86,8 @@ class Gamestate():
                 "name": player.name,
                 "score": player.tower_lst.score()
             })
-        sorted(lst_player, key = lambda x: x["score"])
-        return f'Побеждает: {lst_player[-1]["name"]}, с количеством очков: {lst_player[-1]["score"]}'
+        srt_list = sorted(lst_player, key = lambda x: x["score"])
+        print(f'Побеждает: {srt_list[-1]["name"]}, с количеством очков: {srt_list[-1]["score"]}')
 
 
     def save(self):
@@ -75,10 +103,8 @@ class Gamestate():
                    data['current_player_index'],
                    [Dice.load(dd) for dd in data['dices']])
 
-
-class GameStage():
-    ROLL_DICE = 1
-    CHOOSE_DICE = 2
-    CHOOSE_ACTION = 3
-    NEXT_ROUND = 4
-    END_GAME = 5
+if __name__ == '__main__':
+    s = Player('Dendi')
+    a = Player('Pudge')
+    c = Gamestate([a, s], 0)
+    c.run()

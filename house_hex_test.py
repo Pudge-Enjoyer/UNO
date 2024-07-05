@@ -1,4 +1,4 @@
-from house_new import House
+from house_hex import House
 
 def test_position():
     c = House()

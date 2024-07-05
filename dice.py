@@ -1,4 +1,3 @@
-import json
 from random import randint
 class Dice():
     SIDES = [1, 2, 3, 4, 5, 6]

@@ -1,6 +1,6 @@
 from random import randint
 from random import choice
-from house_new import House
+from house_hex import House
 
 items = [1, 2, 3, 4, 5, 6]
 class AI():
